@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "atheris-api"
+version = "0.1.0"
+description = ""
+authors = ["altergeist <altergeist.dpkg@gmail.com>"]
+readme = "README.md"
+packages = [{include = "atheris_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.95.0"
+beanie = "^1.18.0"
+uvicorn = {extras = ["standard"], version = "^0.21.1"}
+python-multipart = "^0.0.6"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "atheris_api.main:start"
+startmodule = "atheris_api.utils.start_module:start"
