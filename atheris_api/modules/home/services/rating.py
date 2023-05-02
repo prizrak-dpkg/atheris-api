@@ -31,7 +31,8 @@ class RatingRequest(PaginatedRequest):
         total_qualification = reduce(
             lambda acc, rating: acc + rating.qualification, all_ratings, 0
         )
-        average = total_qualification / len(all_ratings)
+        ratings_count = 1 if len(all_ratings) == 0 else len(all_ratings)
+        average = total_qualification / ratings_count
         for rating in ratings:
             results.append(
                 RatingAverageSchema(

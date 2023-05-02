@@ -64,7 +64,10 @@ def init_api() -> FastAPI:
     async def validation_exception_handler(request, exc):
         errors = []
         for error in exc.errors():
-            errors.append({"field": error["loc"][1], "msg": error["msg"]})
+            if len(error["loc"]) > 0:
+                errors.append(
+                    {"field": error["loc"][len(error["loc"]) - 1], "msg": error["msg"]}
+                )
         return JSONResponse(
             status_code=HTTP_422_UNPROCESSABLE_ENTITY,
             content={"detail": errors},

@@ -1,6 +1,8 @@
-# Starlette imports
-import json
+# Python imports
 from typing import Dict, List
+import json
+
+# Starlette imports
 from pydantic import ValidationError
 from starlette.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 

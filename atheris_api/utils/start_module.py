@@ -48,7 +48,7 @@ The module name is invalid:
 
 
 def start():
-    if len(sys.argv) == 2 and sys.argv[0] == "startmodule":
+    if len(sys.argv) == 2 and "startmodule" in sys.argv[0]:
         module = StartModule(sys.argv[1])
         try:
             module.create_module()
