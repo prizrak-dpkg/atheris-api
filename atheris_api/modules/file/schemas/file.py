@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 class FileSchema(BaseModel):
     id: Optional[PydanticObjectId] = Field(
         default=None,
-        alias="id",
+        alias="_id",
         description="Unique identifier for the file",
     )
     sha256: str = Field(..., description="The sha256 hash of the file.")

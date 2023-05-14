@@ -12,7 +12,7 @@ from ..schemas.product import CustomerSchema, ProductSchema
 
 
 class CustomerModel(Document):
-    id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="id")
+    id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="_id")
     created_at: datetime = Field(default_factory=datetime.utcnow, alias="created_at")
     document_number: str = Field(...)
     names: str = Field(...)
@@ -20,6 +20,7 @@ class CustomerModel(Document):
     email: EmailStr = Field(...)
     city: str = Field(...)
     address: str = Field(...)
+    status: bool = Field(default=False)
 
     class Config:
         name = "customers"
@@ -46,7 +47,7 @@ class CustomerModel(Document):
 
 
 class ProductModel(Document):
-    id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="id")
+    id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="_id")
     created_at: datetime = Field(default_factory=datetime.utcnow, alias="created_at")
     primary_color: str = Field(...)
     second_color: str = Field(...)

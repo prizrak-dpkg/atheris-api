@@ -6,7 +6,7 @@ from beanie import Document, Indexed, PydanticObjectId
 
 
 class FileModel(Document):
-    _id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="id")
+    _id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="_id")
     sha256: Indexed(str, unique=True) = Field(
         ..., description="The sha256 hash of the file."
     )

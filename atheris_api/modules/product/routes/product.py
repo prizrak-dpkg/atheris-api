@@ -6,11 +6,11 @@ from ..services.product import ProductRequest
 
 router = APIRouter()
 
-# router.add_api_route(
-#     "/product_slide",
-#     methods=["GET"],
-#     endpoint=HomeRequest().get_async,
-# )
+router.add_api_route(
+    "/track",
+    methods=["GET"],
+    endpoint=ProductRequest().get_track_async,
+)
 
 router.add_api_route(
     "/customer",

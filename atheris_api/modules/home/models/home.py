@@ -10,7 +10,7 @@ from ..schemas.home import ProductSlideSchema, SlideInfoSchema
 
 
 class ProductSlideModel(Document):
-    id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="id")
+    id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="_id")
     title: Indexed(str, unique=True) = Field(...)
     desc: str = Field(...)
     banner: str = Field(...)

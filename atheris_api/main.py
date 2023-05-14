@@ -83,4 +83,4 @@ def start():
     """
     Starts the Uvicorn server to run the FastAPI instance
     """
-    uvicorn.run("atheris_api.main:crab", host="0.0.0.0", port=8888, reload=True)
+    uvicorn.run("atheris_api.main:crab", host="0.0.0.0", port=8888)

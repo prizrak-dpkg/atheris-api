@@ -185,8 +185,6 @@ ENV/
 env.bak/
 venv.bak/
 *.pem
-*.yaml
-nginx.conf
 
 # Spyder project settings
 .spyderproject

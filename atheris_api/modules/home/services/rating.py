@@ -10,9 +10,9 @@ from fastapi.responses import JSONResponse
 # Own imports
 from atheris_api.modules.home.models.rating import RatingModel
 from atheris_api.modules.home.schemas.rating import (
-    RatingSchema,
     RatingAverageSchema,
     RatingListSchema,
+    RatingSetSchema,
 )
 from atheris_api.utils.paginate import PaginatedListSchema, PaginatedRequest
 
@@ -52,7 +52,7 @@ class RatingRequest(PaginatedRequest):
 
     async def create_rating_async(
         self,
-        rating: RatingSchema = Body(...),
+        rating: RatingSetSchema = Body(...),
     ) -> JSONResponse:
         await RatingModel.create_async(rating=rating)
         return JSONResponse(

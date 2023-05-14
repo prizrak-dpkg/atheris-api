@@ -1,6 +1,9 @@
 # Python imports
 from enum import Enum
 import re
+import nltk
+
+nltk.download("punkt")
 
 
 class RegexEnum(Enum):
@@ -44,6 +47,11 @@ class RegexValidators:
         self.optional = optional
         self.flags = flags
 
+    def capitalize_sentences(self, text):
+        sentences = nltk.sent_tokenize(text)
+        capitalized_sentences = [sentence.capitalize() for sentence in sentences]
+        return " ".join(capitalized_sentences)
+
     def getFormatText(self, value):
         whitespace_regex: re.Pattern[str] = re.compile(r"(\s)+")
         return re.sub(whitespace_regex, " ", value).strip()
@@ -51,7 +59,7 @@ class RegexValidators:
     @property
     def validate(self):
         regex_test: re.Pattern[str] = re.compile(self.regex, *self.flags)
-        value = self.getFormatText(self.value).title()
+        value = self.capitalize_sentences(self.getFormatText(self.value))
         if self.optional:
             return {
                 "match": value == "" or regex_test.match(value) is not None,

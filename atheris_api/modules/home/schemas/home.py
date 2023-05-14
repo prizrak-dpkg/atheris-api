@@ -78,7 +78,7 @@ class ProductSlideSchema(BaseModel):
     """
 
     id: Optional[PydanticObjectId] = Field(
-        alias="id",
+        alias="_id",
         description="Unique identifier for the product slide",
     )
     title: str = Field(..., description="Title of the product slide")

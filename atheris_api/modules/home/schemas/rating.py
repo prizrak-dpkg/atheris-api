@@ -9,6 +9,7 @@ from beanie import PydanticObjectId
 
 # Own imports
 from atheris_api.utils.paginate import PaginatedListSchema
+from atheris_api.utils.regex import RegexEnum, RegexValidators
 
 
 class RatingSchema(BaseModel):
@@ -22,7 +23,7 @@ class RatingSchema(BaseModel):
     """
 
     id: Optional[PydanticObjectId] = Field(
-        alias="id",
+        alias="_id",
         description="Unique identifier for the rating",
     )
     comment: str = Field(..., description="Comment of the product")
@@ -30,9 +31,12 @@ class RatingSchema(BaseModel):
 
     @validator("comment", pre=True, always=True)
     def check_title(cls, value: str) -> str:
-        if not value:
-            raise ValueError("El campo * no puede estar vacío.")
-        return value
+        validator = (RegexValidators(regex=RegexEnum.TEXT, value=value)).validate
+        if not validator.get("match"):
+            raise ValueError(
+                validator.get("message"),
+            )
+        return validator.get("value")
 
     @validator("qualification", pre=True, always=True)
     def check_desc(cls, value: float) -> float:
@@ -43,6 +47,10 @@ class RatingSchema(BaseModel):
         if value > 5.0:
             value = 5.0
         return value
+
+
+class RatingSetSchema(RatingSchema):
+    owner: PydanticObjectId = Field(..., description="Owner of the rating")
 
 
 class RatingAverageSchema(RatingSchema):

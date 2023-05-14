@@ -1,5 +1,6 @@
 # Pydantic imports
 import re
+from typing import Optional
 from pydantic import Field
 
 # Beanie imports
@@ -10,9 +11,10 @@ from ..schemas.rating import RatingSchema
 
 
 class RatingModel(Document):
-    id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="id")
+    id: PydanticObjectId = Field(default_factory=PydanticObjectId, alias="_id")
     comment: str = Field(...)
     qualification: float = Field(...)
+    owner: Optional[PydanticObjectId] = Field(default=None)
 
     class Config:
         name = "ratings"
@@ -23,6 +25,7 @@ class RatingModel(Document):
             cls(
                 comment=rating.comment,
                 qualification=rating.qualification,
+                owner=rating.owner,
             )
         )
         if not isinstance(ratingQ, cls):

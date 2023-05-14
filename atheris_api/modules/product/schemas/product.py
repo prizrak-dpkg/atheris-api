@@ -28,7 +28,7 @@ class CustomerSchema(BaseModel):
     """
 
     id: Optional[PydanticObjectId] = Field(
-        alias="id",
+        alias="_id",
         description="Unique identifier for the cutomer",
     )
     createdAt: datetime = Field(
@@ -141,7 +141,7 @@ class ProductSchema(BaseModel):
     """
 
     id: Optional[PydanticObjectId] = Field(
-        alias="id",
+        alias="_id",
         description="Unique identifier for the product",
     )
     createdAt: datetime = Field(
