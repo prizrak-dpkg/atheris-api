@@ -23,9 +23,9 @@ from atheris_api.modules import models, routers
 
 def init_api() -> FastAPI:
     api = FastAPI(
-        title="Crab API",
+        title="Atheris API",
         description="""
-        Crab API is an API to manage customers, invoices and advertising campaigns for many shopping malls.
+        Atheris API is an API that handles requests related to a clothing store.
 
         Versions are handled with 3 numbers, X.Y.Z, and each one indicates a different thing:
 

@@ -13,25 +13,47 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /path/to/data/atheris/db
+      device: /root/data/db
   atheris_uploads:
     name: atheris_uploads
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /path/to/data/atheris/uploads
+      device: /root/data/uploads
 
 services:
   nginx:
     image: nginx:1.23-alpine
     container_name: nginx_proxy
+    restart: always
     volumes:
-      - /path/to/nginx_conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /root/atheris-api/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
       - 80:80
+      - 443:443
     networks:
       - nginx_proxy
+      - atheris_net
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+
+  atheris_ui:
+    container_name: atheris_ui
+    image: atheris_ui:0.1.0
+    restart: always
+    environment:
+      VIRTUAL_HOST: altergeist.xyz
+    depends_on:
+      - atheris_api
+    networks:
       - atheris_net
 
   atheris_api:
@@ -39,7 +61,7 @@ services:
     image: atheris_api:0.1.0
     restart: always
     environment:
-      VIRTUAL_HOST: atheris.domain.tld
+      VIRTUAL_HOST: api.altergeist.xyz
     volumes:
       - atheris_uploads:/atheris/uploads
     depends_on:
@@ -53,7 +75,7 @@ services:
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: yourStrongPassword
+      MONGO_INITDB_ROOT_PASSWORD: yourStrontPassword
     volumes:
       - atheris_data:/data/db
     networks:
