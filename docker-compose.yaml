@@ -75,7 +75,7 @@ services:
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: yourStrontPassword
+      MONGO_INITDB_ROOT_PASSWORD: yourStrongPassword
     volumes:
       - atheris_data:/data/db
     networks:
